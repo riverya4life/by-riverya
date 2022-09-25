@@ -75,7 +75,7 @@ function update()
                 end
             end)
         else
-            sampAddChatMessage('{dc4747}Ошибка{ffffff}, невозможно установить обновление, код: '..response.status_code, -1)
+            sampAddChatMessage('{dc4747}Ошибка{ffffff}, невозможно установить обновление! Код: '..response.status_code, -1)
         end
     end
     return f
@@ -96,11 +96,10 @@ function ev.onRemove3DTextLabel(id)
 	end
 end
 
-
 function main()
 	if not isSampLoaded() or not isSampfuncsLoaded() then return end
 	while not isSampAvailable() do wait(100) end
-	while sampGetGamestate() ~= 3 do return true end
+	while sampGetGamestate() ~= 3 do wait(100) end
 	
 	sampAddChatMessage('{FFFFFF}Сборку сделал {42B166}'..author..' {FFFFFF}| {74adfc}'..vk..' {FFFFFF}I{74adfc} '..tiktok..'', -1)
 	sampAddChatMessage('{42B166}[Уютненько :)]{ffffff} Меню скрипта: {dc4747}/riverya{FFFFFF}. Версия скрипта {42B166}' ..thisScript().version, -1)
@@ -154,6 +153,8 @@ function main()
 	mem.write(0x575313, 0xCB0730, 4, true)
 	mem.write(0x57533E, 0xCB0725, 4, true)
 	mem.write(0x575363, 0xCB0730, 4, true)
+	
+	mem.fill(0x00531155, 0x90, 5, true) -- shift fix by FYP
 	
 	--mem.write(sampGetBase() + 643864, 37008, 2, true) -- Патч радара при слежке
 	--mem.fill(0x74542B, 0x90, 6, true) -- nop SetCursorPos
@@ -221,8 +222,8 @@ end
     
     end)
 	
-	while true do
-	wait(1)
+    while true do wait(0)
+
         local chatstring = sampGetChatString(99)
         if chatstring == "Server closed the connection." or chatstring == "You are banned from this server." or chatstring == "Сервер закрыл соединение." or chatstring == "Вы забанены на этом сервере." then
 	    sampDisconnectWithReason(false)
@@ -271,7 +272,7 @@ function riverya()
 end
 
 function riveryahelp()
-    sampShowDialog(13339,'{dc4747}[Help]','{ffffff}Привет ещё раз, я тебе распишу всё, что есть в скрипте, который я писал для сборки.\n{42B166}Что было добавлено:{ffffff}\n\n   •   Теперь вы не сможете перейти в оконный режим с помощью комбинации {dc4747}Alt + Enter{ffffff} во избежания вылета игры.\n   •   Если сервер стоит под паролем, то будет флудить строкой {dc4747}"Wrong Server Password"{ffffff} до тех пор, пока с сервера не снимут пароль.\n   •   При входе в игру в консоль {dc4747}SampFuncs{ffffff} будут прописаны команды {dc4747}clear, threads и chatcmds{ffffff} автоматически.\n   •   {dc4747}Звёзды{ffffff} теперь отображаются на экране всегда.\n   •   Теперь чтобы вывести счётчик {dc4747}FPS{ffffff} достаточно прописать в чат команду {dc4747}/fps{ffffff} (теперь в консоль {dc4747}SampFuncs{ffffff} заходить не обязательно)\n   •   Убран надоедливый зелёный радар при полетё (осталась только тестура в {dc4747}hud.txd{ffffff}, которая заменяется на которую хотите)\n   •   Добавлена команда {dc4747}/mystonks{ffffff} для для просмотра своего дохода за текущую сессию.\n   •   Добавлена команда {dc4747}/pivko{ffffff} для посиделок с братанами вечерком или для RP ситуаций, так же есть команда {dc4747}/givepivo ID{ffffff} чтобы передать (у вас в руках появиться пивко)\n   •   Добавлена команда {dc4747}/takebich{ffffff} чтобы можно было покурить с братком на районе (всем будет видно)\n   •   Теперь {dc4747}описание{ffffff} не будет видно, пока вы не нацелитесь на игрока (под Аризону как некий FPS UP)\n   •   Теперь клавиша {dc4747}T (рус. Е){ffffff} не открывает чат (по умолчанию теперь клавиша {dc4747}F6{ffffff})\n   •   Исправлен {dc4747}баг{ffffff} с бегом Сиджея после смерти.\n   •   Исправлена проблема, когда после {dc4747}смерти{ffffff} у тебя появляется бутылка пива и т.д.\n   •   {dc4747}Удалена задержка{ffffff} в 14 мс между кадрами.\n   •   Убрана {dc4747}задержка в 3 секунды{ffffff} при подключении на сервер.\n   •   Добавлена команда {dc4747}/dialogarz{ffffff} для возможности включения цвета диалогов как на лаунчере Arizona Role Play.\n   •   При отключении от сервера Вас теперь будет {dc4747}автоматически реконнектить{ffffff}.\n   •   {dc4747}[Arizona]{ffffff} Теперь пин-код банковской карты будет таким же, как при {dc4747}вводе пароля{ffffff}.\n   •   Теперь из за очень большой скорости вас {dc4747}не будет кидать в Загрузку{ffffff}.\n   •   При вводе команд {dc4747}/riveryaloh{ffffff} или {dc4747}/riveryalox{ffffff} вас ждёт сюрприз {dc4747}<3{ffffff}','{42B166}Уютненько','',0)
+    sampShowDialog(13339,'{dc4747}[Help]','{ffffff}Привет ещё раз, я тебе распишу всё, что есть в скрипте, который я писал для сборки.\n{42B166}Что было добавлено:{ffffff}\n\n   •   Теперь вы не сможете перейти в оконный режим с помощью комбинации {dc4747}Alt + Enter{ffffff} во избежания вылета игры.\n   •   Если сервер стоит под паролем, то будет флудить строкой {dc4747}"Wrong Server Password"{ffffff} до тех пор, пока с сервера не снимут пароль.\n   •   При входе в игру в консоль {dc4747}SampFuncs{ffffff} будут прописаны команды {dc4747}clear, threads и chatcmds{ffffff} автоматически.\n   •   {dc4747}Звёзды{ffffff} теперь отображаются на экране всегда.\n   •   Теперь чтобы вывести счётчик {dc4747}FPS{ffffff} достаточно прописать в чат команду {dc4747}/fps{ffffff} (теперь в консоль {dc4747}SampFuncs{ffffff} заходить не обязательно)\n   •   Убран надоедливый зелёный радар при полетё (осталась только тестура в {dc4747}hud.txd{ffffff}, которая заменяется на которую хотите)\n   •   Добавлена команда {dc4747}/mystonks{ffffff} для для просмотра своего дохода за текущую сессию.\n   •   Добавлена команда {dc4747}/pivko{ffffff} для посиделок с братанами вечерком или для RP ситуаций, так же есть команда {dc4747}/givepivo ID{ffffff} чтобы передать (у вас в руках появиться пивко)\n   •   Добавлена команда {dc4747}/takebich{ffffff} чтобы можно было покурить с братком на районе (всем будет видно)\n   •   Теперь {dc4747}описание{ffffff} не будет видно, пока вы не нацелитесь на игрока (под Аризону как некий FPS UP)\n   •   Теперь клавиша {dc4747}T (рус. Е){ffffff} не открывает чат (по умолчанию теперь клавиша {dc4747}F6{ffffff})\n   •   Исправлен {dc4747}баг{ffffff} с бегом Сиджея после смерти.\n   •   Исправлена проблема, когда после {dc4747}смерти{ffffff} у тебя появляется бутылка пива и т.д.\n   •   {dc4747}Удалена задержка{ffffff} в 14 мс между кадрами.\n   •   Убрана {dc4747}задержка в 3 секунды{ffffff} при подключении на сервер.\n   •   Добавлена команда {dc4747}/dialogarz{ffffff} для возможности включения цвета диалогов как на лаунчере Arizona Role Play.\n   •   При отключении от сервера Вас теперь будет {dc4747}автоматически реконнектить{ffffff}.\n   •   {dc4747}[Arizona]{ffffff} Теперь пин-код банковской карты и код складских помещений скрыт, как при {dc4747}вводе пароля{ffffff}.\n   •   Теперь из за очень большой скорости вас {dc4747}не будет кидать в Загрузку{ffffff}.\n   •   По команде {dc4747}/radarpatch{ffffff} включится патч радара (Будет везде, даже при заходе на сервер)\n   •   При вводе команд {dc4747}/riveryaloh{ffffff} или {dc4747}/riveryalox{ffffff} вас ждёт сюрприз {dc4747}<3{ffffff}','{42B166}Уютненько','',0)
     lua_thread.create(negrtop)
 end
 
@@ -400,8 +401,12 @@ function ev.onSetMapIcon(iconId, position, type, color, style)
     end
 end
 
-function samp.onShowDialog(id, style, title, button1, button2, text)
+function samp.onShowDialog(id, style, title, button1, button2, text) -- Скрытие пароля банковской карты
     return {id, text == '{929290}Вы должны подтвердить свой PIN-код к карточке.\nВведите свой код в ниже указаную строку.' and 3 or style, title, button1, button2, text}
+end
+
+function samp.onShowDialog(id, style, title, button1, button2, text) -- Скрытие кода складских помещений
+    return {id, text == '{ffffff}Чтобы открыть этот склад, введите специальный' and 3 or style, title, button1, button2, text}
 end
 
 function setDialogColor(l_up, r_up, l_low, r_bottom) --by stereoliza (https://www.blast.hk/threads/13380/post-621933)
