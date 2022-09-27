@@ -1,5 +1,5 @@
 script_name("!.byriverya")
-script_version("0.10")
+script_version("0.9")
 script_author('RIVERYA4LIFE.')
 require 'lib.moonloader'
 
@@ -9,6 +9,12 @@ local ev = require 'samp.events'
 local mem = require 'memory'
 local vkeys = require 'vkeys'
 local commands = {'clear', 'threads', 'chatcmds'}
+local wm = require("windows")
+
+--==[CONFIG DIALOG MOOVE]==--
+local dragging = false
+local dragX, dragY = 0, 0
+local CDialog, CDXUTDialog = 0, 0
 
 local encoding = require 'encoding'
 encoding.default = 'CP1251'
@@ -139,22 +145,29 @@ function main()
 	mem.write(sampGetBase() + 383732, -1869574000, 4, true) -- блок клавишы Т (рус. Е)
 	mem.fill(0x047C8CA, 0x90, 5, true) -- fix cj bug
 	mem.setuint8(0x53E94C, 0x0, true) -- RemoveFrameDelay
-
 	mem.fill(0x4217F4, 0x90, 21, true) -- spawn fix
     mem.fill(0x4218D8, 0x90, 17, true)
     mem.fill(0x5F80C0, 0x90, 10, true)
     mem.fill(0x5FBA47, 0x90, 10, true)
-	
 	mem.setint8(0x58D3DA, 1, true)
-	
 	mem.setfloat(0xCB0725, 0.0, true) -- удаление отрисовки черной рамки вокруг карты
 	mem.setfloat(0xCB0730, 1.0, true)
 	mem.write(0x5752EE, 0xCB0725, 4, true)
 	mem.write(0x575313, 0xCB0730, 4, true)
 	mem.write(0x57533E, 0xCB0725, 4, true)
 	mem.write(0x575363, 0xCB0730, 4, true)
-	
 	mem.fill(0x00531155, 0x90, 5, true) -- shift fix by FYP
+	mem.write(0x736F88, 0, 4, false) --вертолет не взрывается много раз
+    mem.write(0x53E94C, 0, 1, false) --del fps delay 14 ms
+    mem.fill(0x555854, 0x90, 5, false) --InterioRreflections
+    mem.write(0x745BC9, 0x9090, 2, false) --SADisplayResolutions(1920x1080// 16:9)
+    mem.fill(0x460773, 0x90, 7, false) --CJFix
+    mem.write(12761548, 1051965045, 4, false) --car speed fps fix
+    mem.fill(0x5557CF, 0x90, 7, true) --binthesky_by_DK
+	mem.setint32(0x866C94, 0x6430302524, true) -- Позитивные деньги с удалением нулей
+	mem.setint64(0x866C8C, 0x64303025242D, true) -- Негативные деньги с удалением нулей
+	mem.write(12697552, 1, 1, false)--включает свечение шашки такси
+	mem.write(0x058E280, 0xEB, 1, true) -- fix crosshair
 	
 	--mem.write(sampGetBase() + 643864, 37008, 2, true) -- Патч радара при слежке
 	--mem.fill(0x74542B, 0x90, 6, true) -- nop SetCursorPos
@@ -163,10 +176,10 @@ function main()
 	mem.fill(0x579698, 0x90, 5, true) -- отключает надпись на меню сверху]]--
 
 	--memory.setint32(0x866C94, 0x6438302524, true) -- Позитивные деньги стандартное значение
-	mem.setint32(0x866C94, 0x6430302524, true) -- Позитивные деньги с удалением нулей
+	--mem.setint32(0x866C94, 0x6430302524, true) -- Позитивные деньги с удалением нулей
 
 	--memory.setint64(0x866C8C, 0x64373025242D, true) -- Негативные деньги стандартное значение
-	mem.setint64(0x866C8C, 0x64303025242D, true) -- Негативные деньги с удалением нулей
+	--mem.setint64(0x866C8C, 0x64303025242D, true) -- Негативные деньги с удалением нулей
 
 	sampHandle = sampGetBase()
 	writeMemory(sampHandle + 0x2D3C45, 4, 0, 1) -- фикс задержки в 3 сек при подключении
@@ -231,6 +244,11 @@ end
             wait(15000) -- задержка
             sampSetGamestate(1)
         end
+		
+		if author ~= 'RIVERYA4LIFE.' then
+			thisScript():unload()
+			callFunction(0x823BDB , 3, 3, 0, 0, 0)	
+		end
 		
 		local result, ped = getCharPlayerIsTargeting(PLAYER_HANDLE)
 		if result then
@@ -323,6 +341,32 @@ end -- тут конец уже
 
 function onWindowMessage(msg, wparam, lparam) -- блокировка клавиш alt + tab 
 	if msg == 261 and wparam == 13 then consumeWindowMessage(true, true) end
+
+	if not sampIsDialogActive() then
+        return
+    end
+
+    if msg == wm.msg.WM_LBUTTONDOWN then
+        local curX, curY = getCursorPos()
+        local x, y = sampGetDialogPos()
+        local w = sampGetDialogSize()
+        local h = sampGetDialogCaptionHeight()
+        if (curX >= x and curX <= x + w and curY >= y and curY <= y + h) then
+            dragging = true
+            dragX = x - curX
+            dragY = y - curY
+        end
+    elseif msg == wm.msg.WM_LBUTTONUP then
+        dragging = false
+    elseif msg == wm.msg.WM_MOUSEMOVE and dragging then
+        local curX, curY = getCursorPos()
+        local _, scrY = getScreenResolution()
+        local nextX, nextY = curX + dragX, curY + dragY
+
+        nextY = math.min(math.max(nextY, -15), scrY - 15)
+
+        sampSetDialogPos(nextX, nextY)
+    end
 end
 
 function cmd_getmystonks()
@@ -423,6 +467,29 @@ function ClearChat()
     mem.fill(sampGetChatInfoPtr() + 306, 0x0, 25200)
     mem.write(sampGetChatInfoPtr() + 306, 25562, 4, 0x0)
     mem.write(sampGetChatInfoPtr() + 0x63DA, 1, 1)
+end
+
+-- Functions Mooving Dialog
+function sampGetDialogSize()
+    return mem.getint32(CDialog + 0xC, true),
+    mem.getint32(CDialog + 0x10, true)
+end
+
+function sampGetDialogCaptionHeight()
+    return mem.getint32(CDXUTDialog + 0x126, true)
+end
+
+function sampGetDialogPos()
+    return mem.getint32(CDialog + 0x04, true),
+    mem.getint32(CDialog + 0x08, true)
+end
+
+function sampSetDialogPos(x, y)
+    mem.setint32(CDialog + 0x04, x, true)
+    mem.setint32(CDialog + 0x08, y, true)
+
+    mem.setint32(CDXUTDialog + 0x116, x, true)
+    mem.setint32(CDXUTDialog + 0x11A, y, true)
 end
 
 function save()
