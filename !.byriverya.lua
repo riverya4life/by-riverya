@@ -8,7 +8,6 @@ local samp = require 'lib.samp.events'
 local ev = require 'samp.events'
 local mem = require 'memory'
 local vkeys = require 'vkeys'
-local commands = {'clear', 'threads', 'chatcmds'}
 local wm = require("windows")
 
 --==[CONFIG DIALOG MOOVE]==--
@@ -38,7 +37,8 @@ local arizonadialogtag = '{c52c42}Dialog from ARZ Launcher by riverya4life: {fff
 local radarandhudpatchtag = '{42B166}Патч радара: {ffffff}'
 local radarandhudpatch = ini.main.radarandhudpatching
 
--- stats
+-- Config for command
+local commands = {'clear', 'threads', 'chatcmds'}
 local currentmoney = 0
 local nowmymoney = 0
 
@@ -187,7 +187,7 @@ function main()
 
 	for i = 1, #commands do
     	runSampfuncsConsoleCommand(commands[i])
-end
+	end
 
 -- Блок зарегестрированных команд
 	sampRegisterChatCommand('riverya', riverya)
