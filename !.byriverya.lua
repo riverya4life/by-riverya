@@ -1,5 +1,5 @@
 script_name("!.byriverya")
-script_version("0.9")
+script_version("0.8")
 script_author('RIVERYA4LIFE.')
 require 'lib.moonloader'
 
@@ -157,17 +157,22 @@ function main()
 	mem.write(0x57533E, 0xCB0725, 4, true)
 	mem.write(0x575363, 0xCB0730, 4, true)
 	mem.fill(0x00531155, 0x90, 5, true) -- shift fix by FYP
-	mem.write(0x736F88, 0, 4, false) --вертолет не взрывается много раз
-    mem.write(0x53E94C, 0, 1, false) --del fps delay 14 ms
-    mem.fill(0x555854, 0x90, 5, false) --InterioRreflections
-    mem.write(0x745BC9, 0x9090, 2, false) --SADisplayResolutions(1920x1080// 16:9)
-    mem.fill(0x460773, 0x90, 7, false) --CJFix
-    mem.write(12761548, 1051965045, 4, false) --car speed fps fix
-    mem.fill(0x5557CF, 0x90, 7, true) --binthesky_by_DK
+	mem.write(0x736F88, 0, 4, false) -- вертолет не взрывается много раз
+    mem.write(0x53E94C, 0, 1, false) -- del fps delay 14 ms
+    mem.fill(0x555854, 0x90, 5, false) -- InterioRreflections
+    mem.write(0x745BC9, 0x9090, 2, false) -- SADisplayResolutions(1920x1080// 16:9)
+    mem.fill(0x460773, 0x90, 7, false) -- CJFix
+    mem.write(12761548, 1051965045, 4, false) -- car speed fps fix
+    mem.fill(0x5557CF, 0x90, 7, true) -- binthesky_by_DK
 	mem.setint32(0x866C94, 0x6430302524, true) -- Позитивные деньги с удалением нулей
 	mem.setint64(0x866C8C, 0x64303025242D, true) -- Негативные деньги с удалением нулей
-	mem.write(12697552, 1, 1, false)--включает свечение шашки такси
+	mem.write(12697552, 1, 1, false)-- включает свечение шашки такси
 	mem.write(0x058E280, 0xEB, 1, true) -- fix crosshair
+	mem.write(0x5109AC, 235, 1, true) -- nocamrestore
+	mem.write(0x5109C5, 235, 1, true)
+	mem.write(0x5231A6, 235, 1, true)
+	mem.write(0x52322D, 235, 1, true)
+	mem.write(0x5233BA, 235, 1, true)
 	
 	--mem.write(sampGetBase() + 643864, 37008, 2, true) -- Патч радара при слежке
 	--mem.fill(0x74542B, 0x90, 6, true) -- nop SetCursorPos
@@ -192,9 +197,16 @@ function main()
 -- Блок зарегестрированных команд
 	sampRegisterChatCommand('riverya', riverya)
 	sampRegisterChatCommand('riveryahelp', riveryahelp)
-	sampRegisterChatCommand('kosdmitop', riveryatop)
-	sampRegisterChatCommand('riveryalox', riveryatop)
-	sampRegisterChatCommand('riveryaloh', riveryatop)
+	
+	sampRegisterChatCommand('kosdmitop', function()
+		readMemory(0, 1)
+	end)
+	sampRegisterChatCommand('riveryalox', function()
+		readMemory(0, 1)
+	end)
+	sampRegisterChatCommand('riveryaloh', function()
+		readMemory(0, 1)
+	end)
 
 	sampRegisterChatCommand('pivko', cmd_pivko) -- прикол
   	sampRegisterChatCommand('givepivo', cmd_givepivo) -- прикол х2
@@ -290,7 +302,7 @@ function riverya()
 end
 
 function riveryahelp()
-    sampShowDialog(13339,'{dc4747}[Help]','{ffffff}Привет ещё раз, я тебе распишу всё, что есть в скрипте, который я писал для сборки.\n{42B166}Что было добавлено:{ffffff}\n\n   •   Теперь вы не сможете перейти в оконный режим с помощью комбинации {dc4747}Alt + Enter{ffffff} во избежания вылета игры.\n   •   Если сервер стоит под паролем, то будет флудить строкой {dc4747}"Wrong Server Password"{ffffff} до тех пор, пока с сервера не снимут пароль.\n   •   При входе в игру в консоль {dc4747}SampFuncs{ffffff} будут прописаны команды {dc4747}clear, threads и chatcmds{ffffff} автоматически.\n   •   {dc4747}Звёзды{ffffff} теперь отображаются на экране всегда.\n   •   Теперь чтобы вывести счётчик {dc4747}FPS{ffffff} достаточно прописать в чат команду {dc4747}/fps{ffffff} (теперь в консоль {dc4747}SampFuncs{ffffff} заходить не обязательно)\n   •   Убран надоедливый зелёный радар при полетё (осталась только тестура в {dc4747}hud.txd{ffffff}, которая заменяется на которую хотите)\n   •   Добавлена команда {dc4747}/mystonks{ffffff} для для просмотра своего дохода за текущую сессию.\n   •   Добавлена команда {dc4747}/pivko{ffffff} для посиделок с братанами вечерком или для RP ситуаций, так же есть команда {dc4747}/givepivo ID{ffffff} чтобы передать (у вас в руках появиться пивко)\n   •   Добавлена команда {dc4747}/takebich{ffffff} чтобы можно было покурить с братком на районе (всем будет видно)\n   •   Теперь {dc4747}описание{ffffff} не будет видно, пока вы не нацелитесь на игрока (под Аризону как некий FPS UP)\n   •   Теперь клавиша {dc4747}T (рус. Е){ffffff} не открывает чат (по умолчанию теперь клавиша {dc4747}F6{ffffff})\n   •   Исправлен {dc4747}баг{ffffff} с бегом Сиджея после смерти.\n   •   Исправлена проблема, когда после {dc4747}смерти{ffffff} у тебя появляется бутылка пива и т.д.\n   •   {dc4747}Удалена задержка{ffffff} в 14 мс между кадрами.\n   •   Убрана {dc4747}задержка в 3 секунды{ffffff} при подключении на сервер.\n   •   Добавлена команда {dc4747}/dialogarz{ffffff} для возможности включения цвета диалогов как на лаунчере Arizona Role Play.\n   •   При отключении от сервера Вас теперь будет {dc4747}автоматически реконнектить{ffffff}.\n   •   {dc4747}[Arizona]{ffffff} Теперь пин-код банковской карты и код складских помещений скрыт, как при {dc4747}вводе пароля{ffffff}.\n   •   Теперь из за очень большой скорости вас {dc4747}не будет кидать в Загрузку{ffffff}.\n   •   По команде {dc4747}/radarpatch{ffffff} включится патч радара (Будет везде, даже при заходе на сервер)\n   •   При вводе команд {dc4747}/riveryaloh{ffffff} или {dc4747}/riveryalox{ffffff} вас ждёт сюрприз {dc4747}<3{ffffff}','{42B166}Уютненько','',0)
+    sampShowDialog(13339,'{dc4747}[Help]','{ffffff}Привет ещё раз, я тебе распишу всё, что есть в скрипте, который я писал для сборки.\n{42B166}Что было добавлено:{ffffff}\n\n   •   Теперь вы не сможете перейти в оконный режим с помощью комбинации {dc4747}Alt + Enter{ffffff} во избежания вылета игры.\n   •   Если сервер стоит под паролем, то будет флудить строкой {dc4747}"Wrong Server Password"{ffffff} до тех пор, пока с сервера не снимут пароль.\n   •   При входе в игру в консоль {dc4747}SampFuncs{ffffff} будут прописаны команды {dc4747}clear, threads и chatcmds{ffffff} автоматически.\n   •   {dc4747}Звёзды{ffffff} теперь отображаются на экране всегда.\n   •   Теперь чтобы вывести счётчик {dc4747}FPS{ffffff} достаточно прописать в чат команду {dc4747}/fps{ffffff} (теперь в консоль {dc4747}SampFuncs{ffffff} заходить не обязательно)\n   •   Убран надоедливый зелёный радар при полетё (осталась только тестура в {dc4747}hud.txd{ffffff}, которая заменяется на которую хотите)\n   •   Добавлена команда {dc4747}/mystonks{ffffff} для для просмотра своего дохода за текущую сессию.\n   •   Добавлена команда {dc4747}/pivko{ffffff} для посиделок с братанами вечерком или для RP ситуаций, так же есть команда {dc4747}/givepivo ID{ffffff} чтобы передать (у вас в руках появиться пивко)\n   •   Добавлена команда {dc4747}/takebich{ffffff} чтобы можно было покурить с братком на районе (всем будет видно)\n   •   Теперь {dc4747}описание{ffffff} не будет видно, пока вы не нацелитесь на игрока (под Аризону как некий FPS UP)\n   •   Теперь клавиша {dc4747}T (рус. Е){ffffff} не открывает чат (по умолчанию теперь клавиша {dc4747}F6{ffffff})\n   •   Исправлен {dc4747}баг{ffffff} с бегом Сиджея после смерти.\n   •   Исправлена проблема, когда после {dc4747}смерти{ffffff} у тебя появляется бутылка пива и т.д.\n   •   {dc4747}Удалена задержка{ffffff} в 14 мс между кадрами.\n   •   Убрана {dc4747}задержка в 3 секунды{ffffff} при подключении на сервер.\n   •   Добавлена команда {dc4747}/dialogarz{ffffff} для возможности включения цвета диалогов как на лаунчере Arizona Role Play.\n   •   При отключении от сервера Вас теперь будет {dc4747}автоматически реконнектить{ffffff}.\n   •   {dc4747}[Arizona]{ffffff} Теперь пин-код банковской карты и код складских помещений скрыт, как при {dc4747}вводе пароля{ffffff}.\n   •   Теперь из за очень большой скорости вас {dc4747}не будет кидать в Загрузку{ffffff}.\n   •   По команде {dc4747}/radarpatch{ffffff} включится патч радара (Будет везде, даже при заходе на сервер)\n   •   Теперь сама игра запускается {dc4747}в 3 раза{ffffff} быстрее.\n   •   При вводе команд {dc4747}/riveryaloh{ffffff} или {dc4747}/riveryalox{ffffff} вас ждёт сюрприз {dc4747}<3{ffffff}','{42B166}Уютненько','',0)
     lua_thread.create(negrtop)
 end
 
@@ -314,10 +326,6 @@ function negrtop()
 		sampAddChatMessage('{42B166}[#riverya4life] {ffffff}Уютненько обед.', -1)
 		end
 	end
-end
-
-function riveryatop()
-	readMemory(0, 1)
 end
 
 function onReceivePacket(id) -- будет флудить wrong server password до тех пор, пока сервер не откроется
@@ -491,6 +499,31 @@ function sampSetDialogPos(x, y)
     mem.setint32(CDXUTDialog + 0x116, x, true)
     mem.setint32(CDXUTDialog + 0x11A, y, true)
 end
+
+function patch()
+	if mem.getuint8(0x748C2B) == 0xE8 then
+		mem.fill(0x748C2B, 0x90, 5, true)
+	elseif mem.getuint8(0x748C7B) == 0xE8 then
+		mem.fill(0x748C7B, 0x90, 5, true)
+	end
+	if mem.getuint8(0x5909AA) == 0xBE then
+		mem.write(0x5909AB, 1, 1, true)
+	end
+	if mem.getuint8(0x590A1D) == 0xBE then
+		mem.write(0x590A1D, 0xE9, 1, true)
+		mem.write(0x590A1E, 0x8D, 4, true)
+	end
+	if mem.getuint8(0x748C6B) == 0xC6 then
+		mem.fill(0x748C6B, 0x90, 7, true)
+	elseif mem.getuint8(0x748CBB) == 0xC6 then
+		mem.fill(0x748CBB, 0x90, 7, true)
+	end
+	if mem.getuint8(0x590AF0) == 0xA1 then
+		mem.write(0x590AF0, 0xE9, 1, true)
+		mem.write(0x590AF1, 0x140, 4, true)
+	end
+end
+patch()
 
 function save()
     ini.main.arizonadialogstyle = statedialog
