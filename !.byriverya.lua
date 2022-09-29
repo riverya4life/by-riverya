@@ -261,7 +261,7 @@ function main()
 		if onspawned then
 			if offspawnchecker == true then			
 				sayhello()
-				offspawnchecker = false
+			offspawnchecker = false
 			end
 		end
 		
