@@ -36,6 +36,9 @@ local statedialog = ini.main.arizonadialogstyle
 local arizonadialogtag = '{c52c42}Dialog from ARZ Launcher by riverya4life: {ffffff}'
 local radarandhudpatchtag = '{42B166}Патч радара: {ffffff}'
 local radarandhudpatch = ini.main.radarandhudpatching
+-- stats
+local onspawned = false
+local offspawnchecker = true
 
 -- Config for command
 local commands = {'clear', 'threads', 'chatcmds'}
@@ -102,13 +105,18 @@ function ev.onRemove3DTextLabel(id)
 	end
 end
 
-function main()
-	if not isSampLoaded() or not isSampfuncsLoaded() then return end
-	while not isSampAvailable() do wait(100) end
-	while sampGetGamestate() ~= 3 do wait(100) end
-	
+function sayhello()
 	sampAddChatMessage('{FFFFFF}Сборку сделал {42B166}'..author..' {FFFFFF}| {74adfc}'..vk..' {FFFFFF}I{74adfc} '..tiktok..'', -1)
 	sampAddChatMessage('{42B166}[Уютненько :)]{ffffff} Меню скрипта: {dc4747}/riverya{FFFFFF}. Версия скрипта {42B166}' ..thisScript().version, -1)
+end
+
+function main()
+	repeat wait(100) until isSampAvailable()
+	--if not isSampLoaded() or not isSampfuncsLoaded() then return end
+	--while not isSampAvailable() do wait(100) end
+	
+	--sampAddChatMessage('{FFFFFF}Сборку сделал {42B166}'..author..' {FFFFFF}| {74adfc}'..vk..' {FFFFFF}I{74adfc} '..tiktok..'', -1)
+	--sampAddChatMessage('{42B166}[Уютненько :)]{ffffff} Меню скрипта: {dc4747}/riverya{FFFFFF}. Версия скрипта {42B166}' ..thisScript().version, -1)
 	
 	local lastver = update():getLastVersion()
     if thisScript().version ~= lastver then
@@ -248,7 +256,15 @@ function main()
     end)
 	
     while true do wait(0)
-
+		
+		onspawned = sampGetGamestate() == 3
+		if onspawned then
+			if offspawnchecker == true then			
+				sayhello()
+				offspawnchecker = false
+			end
+		end
+		
         local chatstring = sampGetChatString(99)
         if chatstring == "Server closed the connection." or chatstring == "You are banned from this server." or chatstring == "Сервер закрыл соединение." or chatstring == "Вы забанены на этом сервере." then
 	    sampDisconnectWithReason(false)
