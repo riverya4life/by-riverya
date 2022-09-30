@@ -1,5 +1,5 @@
 script_name("!.byriverya")
-script_version("0.8")
+script_version("0.7")
 script_author('RIVERYA4LIFE.')
 require 'lib.moonloader'
 
@@ -121,11 +121,8 @@ function sayhello()
 end
 
 function main()
-	if not isSampLoaded() or not isSampfuncsLoaded() then return end
+	while not isSampAvailable() do wait(100) end
 	repeat wait(100) until isSampAvailable()
-	--while sampGetGamestate() == 3 do wait(100) end
-	--while not isSampAvailable() do wait(100) end
-    --while not isSampfuncsLoаded() do wait(100) end
 	
 	--sampAddChatMessage('{FFFFFF}Сборку сделал {42B166}'..author..' {FFFFFF}| {74adfc}'..vk..' {FFFFFF}I{74adfc} '..tiktok..'', -1)
 	--sampAddChatMessage('{42B166}[Уютненько :)]{ffffff} Меню скрипта: {dc4747}/riverya{FFFFFF}. Версия скрипта {42B166}' ..thisScript().version, -1)
@@ -196,6 +193,7 @@ function main()
 	
 	writeMemory(0x571784, 4, 0x57C7FFF, false) -- nolimitedmoneyhud
 	writeMemory(0x57179C, 4, 0x57C7FFF, false)
+	
     writeMemory(0x460500, 1, 0xC3, true) -- no replay
     mem.fill(0x748E6B, 0x90, 5, true) -- CGame::Shutdown
     mem.fill(0x748E82, 0x90, 5, true) -- RsEventHandler rsRWTERMINATE
@@ -564,6 +562,7 @@ function patch()
 		mem.write(0x590AF1, 0x140, 4, true)
 	end
 end
+
 patch()
 
 function save()
