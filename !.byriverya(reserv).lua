@@ -3,7 +3,7 @@ script_version("0.8")
 script_author('RIVERYA4LIFE.')
 require 'lib.moonloader'
 
--- подключаемые Libs
+-- ГЇГ®Г¤ГЄГ«ГѕГ·Г ГҐГ¬Г»ГҐ Libs
 local samp = require 'lib.samp.events'
 local ev = require 'samp.events'
 local mem = require 'memory'
@@ -34,7 +34,7 @@ inicfg.save(ini, directIni)
 --==[HUETA]==--
 local statedialog = ini.main.arizonadialogstyle
 local arizonadialogtag = '{c52c42}Dialog from ARZ Launcher by riverya4life: {ffffff}'
-local radarandhudpatchtag = '{42B166}Патч радара: {ffffff}'
+local radarandhudpatchtag = '{42B166}ГЏГ ГІГ· Г°Г Г¤Г Г°Г : {ffffff}'
 local radarandhudpatch = ini.main.radarandhudpatching
 -- stats
 local onspawned = false
@@ -50,14 +50,14 @@ local author = 'RIVERYA4LIFE.'
 local tiktok = 'tiktok.com/@riverya4life'
 local vk = 'vk.com/riverya4life'
 
--- для скрытия описания перса
+-- Г¤Г«Гї Г±ГЄГ°Г»ГІГЁГї Г®ГЇГЁГ±Г Г­ГЁГї ГЇГҐГ°Г±Г 
 local active = nil
 local pool = {}
 
 local MAX_SAMP_MARKERS = 63
 
 -- Message if the description does not exist:
-no_description_text = "* Описание отсутствует *"
+no_description_text = "* ГЋГЇГЁГ±Г Г­ГЁГҐ Г®ГІГ±ГіГІГ±ГІГўГіГҐГІ *"
 
 
 function update()
@@ -77,14 +77,14 @@ function update()
         local response = requests.get(raw)
         if response.status_code == 200 then
             downloadUrlToFile(decodeJson(response.text)['url'], thisScript().path, function (id, status, p1, p2)
-                print('Скачиваю '..decodeJson(response.text)['url']..' в '..thisScript().path)
+                print('Г‘ГЄГ Г·ГЁГўГ Гѕ '..decodeJson(response.text)['url']..' Гў '..thisScript().path)
                 if status == dlstatus.STATUSEX_ENDDOWNLOAD then
-                    sampAddChatMessage('Скрипт {42B166}обновлен{ffffff}, перезагрузка...', -1)
+                    sampAddChatMessage('Г‘ГЄГ°ГЁГЇГІ {42B166}Г®ГЎГ­Г®ГўГ«ГҐГ­{ffffff}, ГЇГҐГ°ГҐГ§Г ГЈГ°ГіГ§ГЄГ ...', -1)
                     thisScript():reload()
                 end
             end)
         else
-            sampAddChatMessage('{dc4747}Ошибка{ffffff}, невозможно установить обновление! Код: '..response.status_code, -1)
+            sampAddChatMessage('{dc4747}ГЋГёГЁГЎГЄГ {ffffff}, Г­ГҐГўГ®Г§Г¬Г®Г¦Г­Г® ГіГ±ГІГ Г­Г®ГўГЁГІГј Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ! ГЉГ®Г¤: '..response.status_code, -1)
         end
     end
     return f
@@ -106,8 +106,8 @@ function ev.onRemove3DTextLabel(id)
 end
 
 function sayhello()
-	sampAddChatMessage('{FFFFFF}Сборку сделал {42B166}'..author..' {FFFFFF}| {74adfc}'..vk..' {FFFFFF}I{74adfc} '..tiktok..'', -1)
-	sampAddChatMessage('{42B166}[Уютненько :)]{ffffff} Меню скрипта: {dc4747}/riverya{FFFFFF}. Версия скрипта {42B166}' ..thisScript().version, -1)
+	sampAddChatMessage('{FFFFFF}Г‘ГЎГ®Г°ГЄГі Г±Г¤ГҐГ«Г Г« {42B166}'..author..' {FFFFFF}| {74adfc}'..vk..' {FFFFFF}I{74adfc} '..tiktok..'', -1)
+	sampAddChatMessage('{42B166}[Г“ГѕГІГ­ГҐГ­ГјГЄГ® :)]{ffffff} ГЊГҐГ­Гѕ Г±ГЄГ°ГЁГЇГІГ : {dc4747}/riverya{FFFFFF}. Г‚ГҐГ°Г±ГЁГї Г±ГЄГ°ГЁГЇГІГ  {42B166}' ..thisScript().version, -1)
 end
 
 function main()
@@ -115,15 +115,15 @@ function main()
 	--if not isSampLoaded() or not isSampfuncsLoaded() then return end
 	--while not isSampAvailable() do wait(100) end
 	
-	--sampAddChatMessage('{FFFFFF}Сборку сделал {42B166}'..author..' {FFFFFF}| {74adfc}'..vk..' {FFFFFF}I{74adfc} '..tiktok..'', -1)
-	--sampAddChatMessage('{42B166}[Уютненько :)]{ffffff} Меню скрипта: {dc4747}/riverya{FFFFFF}. Версия скрипта {42B166}' ..thisScript().version, -1)
+	--sampAddChatMessage('{FFFFFF}Г‘ГЎГ®Г°ГЄГі Г±Г¤ГҐГ«Г Г« {42B166}'..author..' {FFFFFF}| {74adfc}'..vk..' {FFFFFF}I{74adfc} '..tiktok..'', -1)
+	--sampAddChatMessage('{42B166}[Г“ГѕГІГ­ГҐГ­ГјГЄГ® :)]{ffffff} ГЊГҐГ­Гѕ Г±ГЄГ°ГЁГЇГІГ : {dc4747}/riverya{FFFFFF}. Г‚ГҐГ°Г±ГЁГї Г±ГЄГ°ГЁГЇГІГ  {42B166}' ..thisScript().version, -1)
 	
 	local lastver = update():getLastVersion()
     if thisScript().version ~= lastver then
         sampRegisterChatCommand('riveryaupd', function()
             update():download()
         end)
-        sampAddChatMessage('{42B166}[!.by riverya]{ffffff} Вышло обновление скрипта ({dc4747}'..thisScript().version..'{ffffff} -> {42B166}'..lastver..'{ffffff}), введите {dc4747}/riveryaupd{ffffff} для обновления!', -1)
+        sampAddChatMessage('{42B166}[!.by riverya]{ffffff} Г‚Г»ГёГ«Г® Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ Г±ГЄГ°ГЁГЇГІГ  ({dc4747}'..thisScript().version..'{ffffff} -> {42B166}'..lastver..'{ffffff}), ГўГўГҐГ¤ГЁГІГҐ {dc4747}/riveryaupd{ffffff} Г¤Г«Гї Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГї!', -1)
     end
 	
 	if statedialog then setDialogColor(0xCC38303c, 0xCC363050, 0xCC75373d, 0xCC583d46) end
@@ -132,25 +132,25 @@ function main()
 	--setDialogColor(0xCC38303c, 0xCC363050, 0xCC75373d, 0xCC583d46) -- dialog color by riverya4life
 
     _, myid = sampGetPlayerIdByCharHandle(playerPed)
-    mynick = sampGetPlayerNickname(myid) -- наш ник крч
+    mynick = sampGetPlayerNickname(myid) -- Г­Г Гё Г­ГЁГЄ ГЄГ°Г·
     -- nick = sampGetPlayerNickname(select(2, sampGetPlayerIdByCharHandle(PLAYER_PED)))
 
-    -- для скрытия описания перса
+    -- Г¤Г«Гї Г±ГЄГ°Г»ГІГЁГї Г®ГЇГЁГ±Г Г­ГЁГї ГЇГҐГ°Г±Г 
     local duration = 0.3
     local max_alpha = 255
     local start = os.clock()
     local finish = nil
 
-  	-- Блок памяти
+  	-- ГЃГ«Г®ГЄ ГЇГ Г¬ГїГІГЁ
 	
-	mem.setint8(0xB7CEE4, 1) -- бесконечный бег
-	mem.fill(0x58DD1B, 0x90, 2, true) -- звёзды на экране
+	mem.setint8(0xB7CEE4, 1) -- ГЎГҐГ±ГЄГ®Г­ГҐГ·Г­Г»Г© ГЎГҐГЈ
+	mem.fill(0x58DD1B, 0x90, 2, true) -- Г§ГўВёГ§Г¤Г» Г­Г  ГЅГЄГ°Г Г­ГҐ
 	mem.setuint8(0x588550, 0xEB, true) -- disable arrow
 	mem.setuint32(0x58A4FE + 0x1, 0x0, true) -- disable green rect
 	mem.setuint32(0x586A71 + 0x1, 0x0, true) -- disable height indicator
 	mem.setuint8(0x58A5D2 + 0x1, 0x0, true)
-	mem.setuint32(0x58A73B + 0x1, 0x0, true) -- залупа которая бесит крч фисташки
-	mem.write(sampGetBase() + 383732, -1869574000, 4, true) -- блок клавишы Т (рус. Е)
+	mem.setuint32(0x58A73B + 0x1, 0x0, true) -- Г§Г Г«ГіГЇГ  ГЄГ®ГІГ®Г°Г Гї ГЎГҐГ±ГЁГІ ГЄГ°Г· ГґГЁГ±ГІГ ГёГЄГЁ
+	mem.write(sampGetBase() + 383732, -1869574000, 4, true) -- ГЎГ«Г®ГЄ ГЄГ«Г ГўГЁГёГ» Г’ (Г°ГіГ±. Г…)
 	mem.fill(0x047C8CA, 0x90, 5, true) -- fix cj bug
 	mem.setuint8(0x53E94C, 0x0, true) -- RemoveFrameDelay
 	mem.fill(0x4217F4, 0x90, 21, true) -- spawn fix
@@ -158,23 +158,23 @@ function main()
     mem.fill(0x5F80C0, 0x90, 10, true)
     mem.fill(0x5FBA47, 0x90, 10, true)
 	mem.setint8(0x58D3DA, 1, true)
-	mem.setfloat(0xCB0725, 0.0, true) -- удаление отрисовки черной рамки вокруг карты
+	mem.setfloat(0xCB0725, 0.0, true) -- ГіГ¤Г Г«ГҐГ­ГЁГҐ Г®ГІГ°ГЁГ±Г®ГўГЄГЁ Г·ГҐГ°Г­Г®Г© Г°Г Г¬ГЄГЁ ГўГ®ГЄГ°ГіГЈ ГЄГ Г°ГІГ»
 	mem.setfloat(0xCB0730, 1.0, true)
 	mem.write(0x5752EE, 0xCB0725, 4, true)
 	mem.write(0x575313, 0xCB0730, 4, true)
 	mem.write(0x57533E, 0xCB0725, 4, true)
 	mem.write(0x575363, 0xCB0730, 4, true)
 	mem.fill(0x00531155, 0x90, 5, true) -- shift fix by FYP
-	mem.write(0x736F88, 0, 4, false) -- вертолет не взрывается много раз
+	mem.write(0x736F88, 0, 4, false) -- ГўГҐГ°ГІГ®Г«ГҐГІ Г­ГҐ ГўГ§Г°Г»ГўГ ГҐГІГ±Гї Г¬Г­Г®ГЈГ® Г°Г Г§
     mem.write(0x53E94C, 0, 1, false) -- del fps delay 14 ms
     mem.fill(0x555854, 0x90, 5, false) -- InterioRreflections
     mem.write(0x745BC9, 0x9090, 2, false) -- SADisplayResolutions(1920x1080// 16:9)
     mem.fill(0x460773, 0x90, 7, false) -- CJFix
     mem.write(12761548, 1051965045, 4, false) -- car speed fps fix
     mem.fill(0x5557CF, 0x90, 7, true) -- binthesky_by_DK
-	mem.setint32(0x866C94, 0x6430302524, true) -- Позитивные деньги с удалением нулей
-	mem.setint64(0x866C8C, 0x64303025242D, true) -- Негативные деньги с удалением нулей
-	mem.write(12697552, 1, 1, false)-- включает свечение шашки такси
+	mem.setint32(0x866C94, 0x6430302524, true) -- ГЏГ®Г§ГЁГІГЁГўГ­Г»ГҐ Г¤ГҐГ­ГјГЈГЁ Г± ГіГ¤Г Г«ГҐГ­ГЁГҐГ¬ Г­ГіГ«ГҐГ©
+	mem.setint64(0x866C8C, 0x64303025242D, true) -- ГЌГҐГЈГ ГІГЁГўГ­Г»ГҐ Г¤ГҐГ­ГјГЈГЁ Г± ГіГ¤Г Г«ГҐГ­ГЁГҐГ¬ Г­ГіГ«ГҐГ©
+	mem.write(12697552, 1, 1, false)-- ГўГЄГ«ГѕГ·Г ГҐГІ Г±ГўГҐГ·ГҐГ­ГЁГҐ ГёГ ГёГЄГЁ ГІГ ГЄГ±ГЁ
 	mem.write(0x058E280, 0xEB, 1, true) -- fix crosshair
 	mem.write(0x5109AC, 235, 1, true) -- nocamrestore
 	mem.write(0x5109C5, 235, 1, true)
@@ -182,27 +182,27 @@ function main()
 	mem.write(0x52322D, 235, 1, true)
 	mem.write(0x5233BA, 235, 1, true)
 	
-	--mem.write(sampGetBase() + 643864, 37008, 2, true) -- Патч радара при слежке
+	--mem.write(sampGetBase() + 643864, 37008, 2, true) -- ГЏГ ГІГ· Г°Г Г¤Г Г°Г  ГЇГ°ГЁ Г±Г«ГҐГ¦ГЄГҐ
 	--mem.fill(0x74542B, 0x90, 6, true) -- nop SetCursorPos
 	
-	--[[mem.fill(0x57E3AE, 0x90, 5, true)-- подсказки
-	mem.fill(0x579698, 0x90, 5, true) -- отключает надпись на меню сверху]]--
+	--[[mem.fill(0x57E3AE, 0x90, 5, true)-- ГЇГ®Г¤Г±ГЄГ Г§ГЄГЁ
+	mem.fill(0x579698, 0x90, 5, true) -- Г®ГІГЄГ«ГѕГ·Г ГҐГІ Г­Г Г¤ГЇГЁГ±Гј Г­Г  Г¬ГҐГ­Гѕ Г±ГўГҐГ°ГµГі]]--
 
-	--memory.setint32(0x866C94, 0x6438302524, true) -- Позитивные деньги стандартное значение
-	--mem.setint32(0x866C94, 0x6430302524, true) -- Позитивные деньги с удалением нулей
+	--memory.setint32(0x866C94, 0x6438302524, true) -- ГЏГ®Г§ГЁГІГЁГўГ­Г»ГҐ Г¤ГҐГ­ГјГЈГЁ Г±ГІГ Г­Г¤Г Г°ГІГ­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ
+	--mem.setint32(0x866C94, 0x6430302524, true) -- ГЏГ®Г§ГЁГІГЁГўГ­Г»ГҐ Г¤ГҐГ­ГјГЈГЁ Г± ГіГ¤Г Г«ГҐГ­ГЁГҐГ¬ Г­ГіГ«ГҐГ©
 
-	--memory.setint64(0x866C8C, 0x64373025242D, true) -- Негативные деньги стандартное значение
-	--mem.setint64(0x866C8C, 0x64303025242D, true) -- Негативные деньги с удалением нулей
+	--memory.setint64(0x866C8C, 0x64373025242D, true) -- ГЌГҐГЈГ ГІГЁГўГ­Г»ГҐ Г¤ГҐГ­ГјГЈГЁ Г±ГІГ Г­Г¤Г Г°ГІГ­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ
+	--mem.setint64(0x866C8C, 0x64303025242D, true) -- ГЌГҐГЈГ ГІГЁГўГ­Г»ГҐ Г¤ГҐГ­ГјГЈГЁ Г± ГіГ¤Г Г«ГҐГ­ГЁГҐГ¬ Г­ГіГ«ГҐГ©
 
 	sampHandle = sampGetBase()
-	writeMemory(sampHandle + 0x2D3C45, 4, 0, 1) -- фикс задержки в 3 сек при подключении
+	writeMemory(sampHandle + 0x2D3C45, 4, 0, 1) -- ГґГЁГЄГ± Г§Г Г¤ГҐГ°Г¦ГЄГЁ Гў 3 Г±ГҐГЄ ГЇГ°ГЁ ГЇГ®Г¤ГЄГ«ГѕГ·ГҐГ­ГЁГЁ
 
 
 	for i = 1, #commands do
     	runSampfuncsConsoleCommand(commands[i])
 	end
 
--- Блок зарегестрированных команд
+-- ГЃГ«Г®ГЄ Г§Г Г°ГҐГЈГҐГ±ГІГ°ГЁГ°Г®ГўГ Г­Г­Г»Гµ ГЄГ®Г¬Г Г­Г¤
 	sampRegisterChatCommand('riverya', riverya)
 	sampRegisterChatCommand('riveryahelp', riveryahelp)
 	
@@ -216,12 +216,12 @@ function main()
 		readMemory(0, 1)
 	end)
 
-	sampRegisterChatCommand('pivko', cmd_pivko) -- прикол
-  	sampRegisterChatCommand('givepivo', cmd_givepivo) -- прикол х2
-  	sampRegisterChatCommand('takebich', cmd_takebich) -- не курите в реале
+	sampRegisterChatCommand('pivko', cmd_pivko) -- ГЇГ°ГЁГЄГ®Г«
+  	sampRegisterChatCommand('givepivo', cmd_givepivo) -- ГЇГ°ГЁГЄГ®Г« Гµ2
+  	sampRegisterChatCommand('takebich', cmd_takebich) -- Г­ГҐ ГЄГіГ°ГЁГІГҐ Гў Г°ГҐГ Г«ГҐ
   	sampRegisterChatCommand('mystonks', cmd_getmystonks)
 
-	sampRegisterChatCommand("fps", function() -- зареганные кмд с функцией в main
+	sampRegisterChatCommand("fps", function() -- Г§Г Г°ГҐГЈГ Г­Г­Г»ГҐ ГЄГ¬Г¤ Г± ГґГіГ­ГЄГ¶ГЁГҐГ© Гў main
 		runSampfuncsConsoleCommand('fps')
 	end)
 		
@@ -238,7 +238,7 @@ function main()
         else
             mem.write(sampGetBase() + 643864, 3956, 2, true)
         end
-        sampAddChatMessage(radarandhudpatch and radarandhudpatchtag..'включен' or radarandhudpatchtag..'выключен', -1)
+        sampAddChatMessage(radarandhudpatch and radarandhudpatchtag..'ГўГЄГ«ГѕГ·ГҐГ­' or radarandhudpatchtag..'ГўГ»ГЄГ«ГѕГ·ГҐГ­', -1)
         save()
     
     end)
@@ -250,7 +250,7 @@ function main()
         else
             setDialogColor(0xCC000000, 0xCC000000, 0xCC000000, 0xCC000000)
         end
-        sampAddChatMessage(statedialog and arizonadialogtag..'цвет включен' or arizonadialogtag..'цвет выключен', -1)
+        sampAddChatMessage(statedialog and arizonadialogtag..'Г¶ГўГҐГІ ГўГЄГ«ГѕГ·ГҐГ­' or arizonadialogtag..'Г¶ГўГҐГІ ГўГ»ГЄГ«ГѕГ·ГҐГ­', -1)
         save()
     
     end)
@@ -266,10 +266,10 @@ function main()
 		end
 		
         local chatstring = sampGetChatString(99)
-        if chatstring == "Server closed the connection." or chatstring == "You are banned from this server." or chatstring == "Сервер закрыл соединение." or chatstring == "Вы забанены на этом сервере." then
+        if chatstring == "Server closed the connection." or chatstring == "You are banned from this server." or chatstring == "Г‘ГҐГ°ГўГҐГ° Г§Г ГЄГ°Г»Г« Г±Г®ГҐГ¤ГЁГ­ГҐГ­ГЁГҐ." or chatstring == "Г‚Г» Г§Г ГЎГ Г­ГҐГ­Г» Г­Г  ГЅГІГ®Г¬ Г±ГҐГ°ГўГҐГ°ГҐ." then
 	    sampDisconnectWithReason(false)
             sampAddChatMessage("Wait reconnecting...", 0xa9c4e4)
-            wait(15000) -- задержка
+            wait(15000) -- Г§Г Г¤ГҐГ°Г¦ГЄГ 
             sampSetGamestate(1)
         end
 		
@@ -313,12 +313,12 @@ function main()
 end
 
 function riverya()
-    sampShowDialog(13337,'{dc4747}[Info]','{ffffff}Приветствуем, {dc4747}'..mynick..'!{ffffff}\n\n{ffffff}Сборку сделал Я, {42B166}'..author..' (Риверя).\n\n{ffffff}Я вообще не планировал её сливать из-за своей лени.{ffffff}\nНу что не сделаешь ради просмотров и лайков.\nПодпишись на мой тик ток:\n{dc4747}• '..tiktok..'.\n\n\n{dc4747}*{ffffff}Если ты не мой подписчик, то лучше подпишись, а то мне обидно будет плак плак({dc4747}*{ffffff}\n\n{dc4747}Доступные команды:{ffffff}\n {42B166}•{ffffff} /riverya - Основное окно.\n {42B166}•{ffffff} /dialogarz - Диалоги с лаунчера Arizona RP.\n {42B166}•{ffffff} /riveryatop - Тест команда\n {dc4747}•{ffffff} /riveryahelp - Тут всё подробно описано.','{42B166}Уютненько','{dc4747}Пон',0)
+    sampShowDialog(13337,'{dc4747}[Info]','{ffffff}ГЏГ°ГЁГўГҐГІГ±ГІГўГіГҐГ¬, {dc4747}'..mynick..'!{ffffff}\n\n{ffffff}Г‘ГЎГ®Г°ГЄГі Г±Г¤ГҐГ«Г Г« Гџ, {42B166}'..author..' (ГђГЁГўГҐГ°Гї).\n\n{ffffff}Гџ ГўГ®Г®ГЎГ№ГҐ Г­ГҐ ГЇГ«Г Г­ГЁГ°Г®ГўГ Г« ГҐВё Г±Г«ГЁГўГ ГІГј ГЁГ§-Г§Г  Г±ГўГ®ГҐГ© Г«ГҐГ­ГЁ.{ffffff}\nГЌГі Г·ГІГ® Г­ГҐ Г±Г¤ГҐГ«Г ГҐГёГј Г°Г Г¤ГЁ ГЇГ°Г®Г±Г¬Г®ГІГ°Г®Гў ГЁ Г«Г Г©ГЄГ®Гў.\nГЏГ®Г¤ГЇГЁГёГЁГ±Гј Г­Г  Г¬Г®Г© ГІГЁГЄ ГІГ®ГЄ:\n{dc4747}В• '..tiktok..'.\n\n\n{dc4747}*{ffffff}Г…Г±Г«ГЁ ГІГ» Г­ГҐ Г¬Г®Г© ГЇГ®Г¤ГЇГЁГ±Г·ГЁГЄ, ГІГ® Г«ГіГ·ГёГҐ ГЇГ®Г¤ГЇГЁГёГЁГ±Гј, Г  ГІГ® Г¬Г­ГҐ Г®ГЎГЁГ¤Г­Г® ГЎГіГ¤ГҐГІ ГЇГ«Г ГЄ ГЇГ«Г ГЄ({dc4747}*{ffffff}\n\n{dc4747}Г„Г®Г±ГІГіГЇГ­Г»ГҐ ГЄГ®Г¬Г Г­Г¤Г»:{ffffff}\n {42B166}В•{ffffff} /riverya - ГЋГ±Г­Г®ГўГ­Г®ГҐ Г®ГЄГ­Г®.\n {42B166}В•{ffffff} /dialogarz - Г„ГЁГ Г«Г®ГЈГЁ Г± Г«Г ГіГ­Г·ГҐГ°Г  Arizona RP.\n {42B166}В•{ffffff} /riveryatop - Г’ГҐГ±ГІ ГЄГ®Г¬Г Г­Г¤Г \n {dc4747}В•{ffffff} /riveryahelp - Г’ГіГІ ГўГ±Вё ГЇГ®Г¤Г°Г®ГЎГ­Г® Г®ГЇГЁГ±Г Г­Г®.','{42B166}Г“ГѕГІГ­ГҐГ­ГјГЄГ®','{dc4747}ГЏГ®Г­',0)
     lua_thread.create(hui)
 end
 
 function riveryahelp()
-    sampShowDialog(13339,'{dc4747}[Help]','{ffffff}Привет ещё раз, я тебе распишу всё, что есть в скрипте, который я писал для сборки.\n{42B166}Что было добавлено:{ffffff}\n\n   •   Теперь вы не сможете перейти в оконный режим с помощью комбинации {dc4747}Alt + Enter{ffffff} во избежания вылета игры.\n   •   Если сервер стоит под паролем, то будет флудить строкой {dc4747}"Wrong Server Password"{ffffff} до тех пор, пока с сервера не снимут пароль.\n   •   При входе в игру в консоль {dc4747}SampFuncs{ffffff} будут прописаны команды {dc4747}clear, threads и chatcmds{ffffff} автоматически.\n   •   {dc4747}Звёзды{ffffff} теперь отображаются на экране всегда.\n   •   Теперь чтобы вывести счётчик {dc4747}FPS{ffffff} достаточно прописать в чат команду {dc4747}/fps{ffffff} (теперь в консоль {dc4747}SampFuncs{ffffff} заходить не обязательно)\n   •   Убран надоедливый зелёный радар при полетё (осталась только тестура в {dc4747}hud.txd{ffffff}, которая заменяется на которую хотите)\n   •   Добавлена команда {dc4747}/mystonks{ffffff} для для просмотра своего дохода за текущую сессию.\n   •   Добавлена команда {dc4747}/pivko{ffffff} для посиделок с братанами вечерком или для RP ситуаций, так же есть команда {dc4747}/givepivo ID{ffffff} чтобы передать (у вас в руках появиться пивко)\n   •   Добавлена команда {dc4747}/takebich{ffffff} чтобы можно было покурить с братком на районе (всем будет видно)\n   •   Теперь {dc4747}описание{ffffff} не будет видно, пока вы не нацелитесь на игрока (под Аризону как некий FPS UP)\n   •   Теперь клавиша {dc4747}T (рус. Е){ffffff} не открывает чат (по умолчанию теперь клавиша {dc4747}F6{ffffff})\n   •   Исправлен {dc4747}баг{ffffff} с бегом Сиджея после смерти.\n   •   Исправлена проблема, когда после {dc4747}смерти{ffffff} у тебя появляется бутылка пива и т.д.\n   •   {dc4747}Удалена задержка{ffffff} в 14 мс между кадрами.\n   •   Убрана {dc4747}задержка в 3 секунды{ffffff} при подключении на сервер.\n   •   Добавлена команда {dc4747}/dialogarz{ffffff} для возможности включения цвета диалогов как на лаунчере Arizona Role Play.\n   •   При отключении от сервера Вас теперь будет {dc4747}автоматически реконнектить{ffffff}.\n   •   {dc4747}[Arizona]{ffffff} Теперь пин-код банковской карты и код складских помещений скрыт, как при {dc4747}вводе пароля{ffffff}.\n   •   Теперь из за очень большой скорости вас {dc4747}не будет кидать в Загрузку{ffffff}.\n   •   По команде {dc4747}/radarpatch{ffffff} включится патч радара (Будет везде, даже при заходе на сервер)\n   •   Теперь сама игра запускается {dc4747}в 3 раза{ffffff} быстрее.\n   •   При вводе команд {dc4747}/riveryaloh{ffffff} или {dc4747}/riveryalox{ffffff} вас ждёт сюрприз {dc4747}<3{ffffff}','{42B166}Уютненько','',0)
+    sampShowDialog(13339,'{dc4747}[Help]','{ffffff}ГЏГ°ГЁГўГҐГІ ГҐГ№Вё Г°Г Г§, Гї ГІГҐГЎГҐ Г°Г Г±ГЇГЁГёГі ГўГ±Вё, Г·ГІГ® ГҐГ±ГІГј Гў Г±ГЄГ°ГЁГЇГІГҐ, ГЄГ®ГІГ®Г°Г»Г© Гї ГЇГЁГ±Г Г« Г¤Г«Гї Г±ГЎГ®Г°ГЄГЁ.\n{42B166}Г—ГІГ® ГЎГ»Г«Г® Г¤Г®ГЎГ ГўГ«ГҐГ­Г®:{ffffff}\n\n   В•   Г’ГҐГЇГҐГ°Гј ГўГ» Г­ГҐ Г±Г¬Г®Г¦ГҐГІГҐ ГЇГҐГ°ГҐГ©ГІГЁ Гў Г®ГЄГ®Г­Г­Г»Г© Г°ГҐГ¦ГЁГ¬ Г± ГЇГ®Г¬Г®Г№ГјГѕ ГЄГ®Г¬ГЎГЁГ­Г Г¶ГЁГЁ {dc4747}Alt + Enter{ffffff} ГўГ® ГЁГ§ГЎГҐГ¦Г Г­ГЁГї ГўГ»Г«ГҐГІГ  ГЁГЈГ°Г».\n   В•   Г…Г±Г«ГЁ Г±ГҐГ°ГўГҐГ° Г±ГІГ®ГЁГІ ГЇГ®Г¤ ГЇГ Г°Г®Г«ГҐГ¬, ГІГ® ГЎГіГ¤ГҐГІ ГґГ«ГіГ¤ГЁГІГј Г±ГІГ°Г®ГЄГ®Г© {dc4747}"Wrong Server Password"{ffffff} Г¤Г® ГІГҐГµ ГЇГ®Г°, ГЇГ®ГЄГ  Г± Г±ГҐГ°ГўГҐГ°Г  Г­ГҐ Г±Г­ГЁГ¬ГіГІ ГЇГ Г°Г®Г«Гј.\n   В•   ГЏГ°ГЁ ГўГµГ®Г¤ГҐ Гў ГЁГЈГ°Гі Гў ГЄГ®Г­Г±Г®Г«Гј {dc4747}SampFuncs{ffffff} ГЎГіГ¤ГіГІ ГЇГ°Г®ГЇГЁГ±Г Г­Г» ГЄГ®Г¬Г Г­Г¤Г» {dc4747}clear, threads ГЁ chatcmds{ffffff} Г ГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГЁ.\n   В•   {dc4747}Г‡ГўВёГ§Г¤Г»{ffffff} ГІГҐГЇГҐГ°Гј Г®ГІГ®ГЎГ°Г Г¦Г ГѕГІГ±Гї Г­Г  ГЅГЄГ°Г Г­ГҐ ГўГ±ГҐГЈГ¤Г .\n   В•   Г’ГҐГЇГҐГ°Гј Г·ГІГ®ГЎГ» ГўГ»ГўГҐГ±ГІГЁ Г±Г·ВёГІГ·ГЁГЄ {dc4747}FPS{ffffff} Г¤Г®Г±ГІГ ГІГ®Г·Г­Г® ГЇГ°Г®ГЇГЁГ±Г ГІГј Гў Г·Г ГІ ГЄГ®Г¬Г Г­Г¤Гі {dc4747}/fps{ffffff} (ГІГҐГЇГҐГ°Гј Гў ГЄГ®Г­Г±Г®Г«Гј {dc4747}SampFuncs{ffffff} Г§Г ГµГ®Г¤ГЁГІГј Г­ГҐ Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г®)\n   В•   Г“ГЎГ°Г Г­ Г­Г Г¤Г®ГҐГ¤Г«ГЁГўГ»Г© Г§ГҐГ«ВёГ­Г»Г© Г°Г Г¤Г Г° ГЇГ°ГЁ ГЇГ®Г«ГҐГІВё (Г®Г±ГІГ Г«Г Г±Гј ГІГ®Г«ГјГЄГ® ГІГҐГ±ГІГіГ°Г  Гў {dc4747}hud.txd{ffffff}, ГЄГ®ГІГ®Г°Г Гї Г§Г Г¬ГҐГ­ГїГҐГІГ±Гї Г­Г  ГЄГ®ГІГ®Г°ГіГѕ ГµГ®ГІГЁГІГҐ)\n   В•   Г„Г®ГЎГ ГўГ«ГҐГ­Г  ГЄГ®Г¬Г Г­Г¤Г  {dc4747}/mystonks{ffffff} Г¤Г«Гї Г¤Г«Гї ГЇГ°Г®Г±Г¬Г®ГІГ°Г  Г±ГўГ®ГҐГЈГ® Г¤Г®ГµГ®Г¤Г  Г§Г  ГІГҐГЄГіГ№ГіГѕ Г±ГҐГ±Г±ГЁГѕ.\n   В•   Г„Г®ГЎГ ГўГ«ГҐГ­Г  ГЄГ®Г¬Г Г­Г¤Г  {dc4747}/pivko{ffffff} Г¤Г«Гї ГЇГ®Г±ГЁГ¤ГҐГ«Г®ГЄ Г± ГЎГ°Г ГІГ Г­Г Г¬ГЁ ГўГҐГ·ГҐГ°ГЄГ®Г¬ ГЁГ«ГЁ Г¤Г«Гї RP Г±ГЁГІГіГ Г¶ГЁГ©, ГІГ ГЄ Г¦ГҐ ГҐГ±ГІГј ГЄГ®Г¬Г Г­Г¤Г  {dc4747}/givepivo ID{ffffff} Г·ГІГ®ГЎГ» ГЇГҐГ°ГҐГ¤Г ГІГј (Гі ГўГ Г± Гў Г°ГіГЄГ Гµ ГЇГ®ГїГўГЁГІГјГ±Гї ГЇГЁГўГЄГ®)\n   В•   Г„Г®ГЎГ ГўГ«ГҐГ­Г  ГЄГ®Г¬Г Г­Г¤Г  {dc4747}/takebich{ffffff} Г·ГІГ®ГЎГ» Г¬Г®Г¦Г­Г® ГЎГ»Г«Г® ГЇГ®ГЄГіГ°ГЁГІГј Г± ГЎГ°Г ГІГЄГ®Г¬ Г­Г  Г°Г Г©Г®Г­ГҐ (ГўГ±ГҐГ¬ ГЎГіГ¤ГҐГІ ГўГЁГ¤Г­Г®)\n   В•   Г’ГҐГЇГҐГ°Гј {dc4747}Г®ГЇГЁГ±Г Г­ГЁГҐ{ffffff} Г­ГҐ ГЎГіГ¤ГҐГІ ГўГЁГ¤Г­Г®, ГЇГ®ГЄГ  ГўГ» Г­ГҐ Г­Г Г¶ГҐГ«ГЁГІГҐГ±Гј Г­Г  ГЁГЈГ°Г®ГЄГ  (ГЇГ®Г¤ ГЂГ°ГЁГ§Г®Г­Гі ГЄГ ГЄ Г­ГҐГЄГЁГ© FPS UP)\n   В•   Г’ГҐГЇГҐГ°Гј ГЄГ«Г ГўГЁГёГ  {dc4747}T (Г°ГіГ±. Г…){ffffff} Г­ГҐ Г®ГІГЄГ°Г»ГўГ ГҐГІ Г·Г ГІ (ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ ГІГҐГЇГҐГ°Гј ГЄГ«Г ГўГЁГёГ  {dc4747}F6{ffffff})\n   В•   Г€Г±ГЇГ°Г ГўГ«ГҐГ­ {dc4747}ГЎГ ГЈ{ffffff} Г± ГЎГҐГЈГ®Г¬ Г‘ГЁГ¤Г¦ГҐГї ГЇГ®Г±Г«ГҐ Г±Г¬ГҐГ°ГІГЁ.\n   В•   Г€Г±ГЇГ°Г ГўГ«ГҐГ­Г  ГЇГ°Г®ГЎГ«ГҐГ¬Г , ГЄГ®ГЈГ¤Г  ГЇГ®Г±Г«ГҐ {dc4747}Г±Г¬ГҐГ°ГІГЁ{ffffff} Гі ГІГҐГЎГї ГЇГ®ГїГўГ«ГїГҐГІГ±Гї ГЎГіГІГ»Г«ГЄГ  ГЇГЁГўГ  ГЁ ГІ.Г¤.\n   В•   {dc4747}Г“Г¤Г Г«ГҐГ­Г  Г§Г Г¤ГҐГ°Г¦ГЄГ {ffffff} Гў 14 Г¬Г± Г¬ГҐГ¦Г¤Гі ГЄГ Г¤Г°Г Г¬ГЁ.\n   В•   Г“ГЎГ°Г Г­Г  {dc4747}Г§Г Г¤ГҐГ°Г¦ГЄГ  Гў 3 Г±ГҐГЄГіГ­Г¤Г»{ffffff} ГЇГ°ГЁ ГЇГ®Г¤ГЄГ«ГѕГ·ГҐГ­ГЁГЁ Г­Г  Г±ГҐГ°ГўГҐГ°.\n   В•   Г„Г®ГЎГ ГўГ«ГҐГ­Г  ГЄГ®Г¬Г Г­Г¤Г  {dc4747}/dialogarz{ffffff} Г¤Г«Гї ГўГ®Г§Г¬Г®Г¦Г­Г®Г±ГІГЁ ГўГЄГ«ГѕГ·ГҐГ­ГЁГї Г¶ГўГҐГІГ  Г¤ГЁГ Г«Г®ГЈГ®Гў ГЄГ ГЄ Г­Г  Г«Г ГіГ­Г·ГҐГ°ГҐ Arizona Role Play.\n   В•   ГЏГ°ГЁ Г®ГІГЄГ«ГѕГ·ГҐГ­ГЁГЁ Г®ГІ Г±ГҐГ°ГўГҐГ°Г  Г‚Г Г± ГІГҐГЇГҐГ°Гј ГЎГіГ¤ГҐГІ {dc4747}Г ГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГЁ Г°ГҐГЄГ®Г­Г­ГҐГЄГІГЁГІГј{ffffff}.\n   В•   {dc4747}[Arizona]{ffffff} Г’ГҐГЇГҐГ°Гј ГЇГЁГ­-ГЄГ®Г¤ ГЎГ Г­ГЄГ®ГўГ±ГЄГ®Г© ГЄГ Г°ГІГ» ГЁ ГЄГ®Г¤ Г±ГЄГ«Г Г¤Г±ГЄГЁГµ ГЇГ®Г¬ГҐГ№ГҐГ­ГЁГ© Г±ГЄГ°Г»ГІ, ГЄГ ГЄ ГЇГ°ГЁ {dc4747}ГўГўГ®Г¤ГҐ ГЇГ Г°Г®Г«Гї{ffffff}.\n   В•   Г’ГҐГЇГҐГ°Гј ГЁГ§ Г§Г  Г®Г·ГҐГ­Гј ГЎГ®Г«ГјГёГ®Г© Г±ГЄГ®Г°Г®Г±ГІГЁ ГўГ Г± {dc4747}Г­ГҐ ГЎГіГ¤ГҐГІ ГЄГЁГ¤Г ГІГј Гў Г‡Г ГЈГ°ГіГ§ГЄГі{ffffff}.\n   В•   ГЏГ® ГЄГ®Г¬Г Г­Г¤ГҐ {dc4747}/radarpatch{ffffff} ГўГЄГ«ГѕГ·ГЁГІГ±Гї ГЇГ ГІГ· Г°Г Г¤Г Г°Г  (ГЃГіГ¤ГҐГІ ГўГҐГ§Г¤ГҐ, Г¤Г Г¦ГҐ ГЇГ°ГЁ Г§Г ГµГ®Г¤ГҐ Г­Г  Г±ГҐГ°ГўГҐГ°)\n   В•   Г’ГҐГЇГҐГ°Гј Г±Г Г¬Г  ГЁГЈГ°Г  Г§Г ГЇГіГ±ГЄГ ГҐГІГ±Гї {dc4747}Гў 3 Г°Г Г§Г {ffffff} ГЎГ»Г±ГІГ°ГҐГҐ.\n   В•   ГЏГ°ГЁ ГўГўГ®Г¤ГҐ ГЄГ®Г¬Г Г­Г¤ {dc4747}/riveryaloh{ffffff} ГЁГ«ГЁ {dc4747}/riveryalox{ffffff} ГўГ Г± Г¦Г¤ВёГІ Г±ГѕГ°ГЇГ°ГЁГ§ {dc4747}<3{ffffff}','{42B166}Г“ГѕГІГ­ГҐГ­ГјГЄГ®','',0)
     lua_thread.create(negrtop)
 end
 
@@ -327,9 +327,9 @@ function hui()
 	wait(0)
 	local __, button, list, input = sampHasDialogRespond(13337)
 	if __ and button == 1 then
-        sampAddChatMessage('{42B166}[#riverya4life] {ffffff}Автор сборки ленивая жопа.', -1)
+        sampAddChatMessage('{42B166}[#riverya4life] {ffffff}ГЂГўГІГ®Г° Г±ГЎГ®Г°ГЄГЁ Г«ГҐГ­ГЁГўГ Гї Г¦Г®ГЇГ .', -1)
 	elseif __ and button == 0 then
-		sampShowDialog(13338,'{dc4747}[Реклама]','{ffffff}Играй со мной на {dc4747}Arizona Role Play Scottdale.{ffffff}\n\nРегистрируйся на мой ник {42B166}Tape_Riverya{ffffff} и получай целых {42B166}300.000${FFFFFF} на 5 уровне.\nПо желанию на 6 уровне вводи промокод {42B166}#riverya4life{FFFFFF}\nОт системы получишь {42B166}100.000${FFFFFF} и от меня ещё целый {42B166}МИЛЛИОН ДОЛЛАРОВ!{FFFFFF}\n\n\nНу а так желаю приятной игры {dc4747}<3{FFFFFF}','{42B166}Уютненько','',0)
+		sampShowDialog(13338,'{dc4747}[ГђГҐГЄГ«Г Г¬Г ]','{ffffff}Г€ГЈГ°Г Г© Г±Г® Г¬Г­Г®Г© Г­Г  {dc4747}Arizona Role Play Scottdale.{ffffff}\n\nГђГҐГЈГЁГ±ГІГ°ГЁГ°ГіГ©Г±Гї Г­Г  Г¬Г®Г© Г­ГЁГЄ {42B166}Tape_Riverya{ffffff} ГЁ ГЇГ®Г«ГіГ·Г Г© Г¶ГҐГ«Г»Гµ {42B166}300.000${FFFFFF} Г­Г  5 ГіГ°Г®ГўГ­ГҐ.\nГЏГ® Г¦ГҐГ«Г Г­ГЁГѕ Г­Г  6 ГіГ°Г®ГўГ­ГҐ ГўГўГ®Г¤ГЁ ГЇГ°Г®Г¬Г®ГЄГ®Г¤ {42B166}#riverya4life{FFFFFF}\nГЋГІ Г±ГЁГ±ГІГҐГ¬Г» ГЇГ®Г«ГіГ·ГЁГёГј {42B166}100.000${FFFFFF} ГЁ Г®ГІ Г¬ГҐГ­Гї ГҐГ№Вё Г¶ГҐГ«Г»Г© {42B166}ГЊГ€Г‹Г‹Г€ГЋГЌ Г„ГЋГ‹Г‹ГЂГђГЋГ‚!{FFFFFF}\n\n\nГЌГі Г  ГІГ ГЄ Г¦ГҐГ«Г Гѕ ГЇГ°ГЁГїГІГ­Г®Г© ГЁГЈГ°Г» {dc4747}<3{FFFFFF}','{42B166}Г“ГѕГІГ­ГҐГ­ГјГЄГ®','',0)
 		end
 	end
 end
@@ -339,18 +339,18 @@ function negrtop()
 	wait(0)
 	local __, button, list, input = sampHasDialogRespond(13339)
 	if __ and button == 0 then
-		sampAddChatMessage('{42B166}[#riverya4life] {ffffff}Уютненько обед.', -1)
+		sampAddChatMessage('{42B166}[#riverya4life] {ffffff}Г“ГѕГІГ­ГҐГ­ГјГЄГ® Г®ГЎГҐГ¤.', -1)
 		end
 	end
 end
 
-function onReceivePacket(id) -- будет флудить wrong server password до тех пор, пока сервер не откроется
+function onReceivePacket(id) -- ГЎГіГ¤ГҐГІ ГґГ«ГіГ¤ГЁГІГј wrong server password Г¤Г® ГІГҐГµ ГЇГ®Г°, ГЇГ®ГЄГ  Г±ГҐГ°ГўГҐГ° Г­ГҐ Г®ГІГЄГ°Г®ГҐГІГ±Гї
 	if id == 37 then
 		sampSetGamestate(1)
 	end
 end
 
-function ev.onSendPlayerSync(data) -- банни хоп
+function ev.onSendPlayerSync(data) -- ГЎГ Г­Г­ГЁ ГµГ®ГЇ
 	if data.keysData == 40 or data.keysData == 42 then sendOnfootSync(); data.keysData = 32 end
 end
 
@@ -361,9 +361,9 @@ function sendOnfootSync()
 	setStructElement(data, 4, 1, 0, false)
 	sampSendOnfootData(data)
 	freeMemory(data)
-end -- тут конец уже
+end -- ГІГіГІ ГЄГ®Г­ГҐГ¶ ГіГ¦ГҐ
 
-function onWindowMessage(msg, wparam, lparam) -- блокировка клавиш alt + tab 
+function onWindowMessage(msg, wparam, lparam) -- ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГ  ГЄГ«Г ГўГЁГё alt + tab 
 	if msg == 261 and wparam == 13 then consumeWindowMessage(true, true) end
 
 	if not sampIsDialogActive() then
@@ -401,25 +401,25 @@ function cmd_getmystonks()
 	nowmymoney = getPlayerMoney(mynick)
 	result = nowmymoney - currentmoney
 	
-	sampAddChatMessage('{dc4747}[#riverya4life]{ffffff} За сессию Вы заработали '..'{5EEE0C}'.. result ..'${FF0000}', -1)
+	sampAddChatMessage('{dc4747}[#riverya4life]{ffffff} Г‡Г  Г±ГҐГ±Г±ГЁГѕ Г‚Г» Г§Г Г°Г ГЎГ®ГІГ Г«ГЁ '..'{5EEE0C}'.. result ..'${FF0000}', -1)
 end
 
 function cmd_givepivo(arg1)
 	local targetnick = sampGetPlayerNickname(arg1)
 	lua_thread.create(function()
-		sampSendChat('/me достал из сумки пиво.')
+		sampSendChat('/me Г¤Г®Г±ГІГ Г« ГЁГ§ Г±ГіГ¬ГЄГЁ ГЇГЁГўГ®.')
 		wait(500)
 		runSampfuncsConsoleCommand('0afd:22')
 		wait(1500)
-		sampSendChat('/me передал пиво '..targetnick)
+		sampSendChat('/me ГЇГҐГ°ГҐГ¤Г Г« ГЇГЁГўГ® '..targetnick)
 		wait(1500)
-		sampSendChat('Угощяйся бро!')
+		sampSendChat('Г“ГЈГ®Г№ГїГ©Г±Гї ГЎГ°Г®!')
 	end)
 end
 
 function cmd_pivko()
 	lua_thread.create(function()
-		sampSendChat('/me достал из сумки пиво, открыл бутылку, начал пить.')
+		sampSendChat('/me Г¤Г®Г±ГІГ Г« ГЁГ§ Г±ГіГ¬ГЄГЁ ГЇГЁГўГ®, Г®ГІГЄГ°Г»Г« ГЎГіГІГ»Г«ГЄГі, Г­Г Г·Г Г« ГЇГЁГІГј.')
 		wait(500)
 		runSampfuncsConsoleCommand('0afd:22')
 	end)
@@ -427,7 +427,7 @@ end
 
 function cmd_takebich()
 	lua_thread.create(function()
-		sampSendChat("/me достал с кармана пачку сигарет, закурил.")
+		sampSendChat("/me Г¤Г®Г±ГІГ Г« Г± ГЄГ Г°Г¬Г Г­Г  ГЇГ Г·ГЄГі Г±ГЁГЈГ Г°ГҐГІ, Г§Г ГЄГіГ°ГЁГ«.")
 		wait(500)
 		runSampfuncsConsoleCommand('0afd:21')
 	end)
@@ -458,7 +458,7 @@ function ev.onSetVehicleVelocity(turn, velocity)
 end
 
 function ev.onServerMessage(color, text)
-	if text:find("%[Ошибка%] {FFFFFF}Доступно только с мобильного или PC лаунчера!") then
+	if text:find("%[ГЋГёГЁГЎГЄГ %] {FFFFFF}Г„Г®Г±ГІГіГЇГ­Г® ГІГ®Г«ГјГЄГ® Г± Г¬Г®ГЎГЁГ«ГјГ­Г®ГЈГ® ГЁГ«ГЁ PC Г«Г ГіГ­Г·ГҐГ°Г !") then
 		return false
 	end
 end
@@ -469,21 +469,21 @@ function ev.onSetMapIcon(iconId, position, type, color, style)
     end
 end
 
-function samp.onShowDialog(id, style, title, button1, button2, text) -- Скрытие пароля банковской карты
-    return {id, text == '{929290}Вы должны подтвердить свой PIN-код к карточке.\nВведите свой код в ниже указаную строку.' and 3 or style, title, button1, button2, text}
+function samp.onShowDialog(id, style, title, button1, button2, text) -- Г‘ГЄГ°Г»ГІГЁГҐ ГЇГ Г°Г®Г«Гї ГЎГ Г­ГЄГ®ГўГ±ГЄГ®Г© ГЄГ Г°ГІГ»
+    return {id, text == '{929290}Г‚Г» Г¤Г®Г«Г¦Г­Г» ГЇГ®Г¤ГІГўГҐГ°Г¤ГЁГІГј Г±ГўГ®Г© PIN-ГЄГ®Г¤ ГЄ ГЄГ Г°ГІГ®Г·ГЄГҐ.\nГ‚ГўГҐГ¤ГЁГІГҐ Г±ГўГ®Г© ГЄГ®Г¤ Гў Г­ГЁГ¦ГҐ ГіГЄГ Г§Г Г­ГіГѕ Г±ГІГ°Г®ГЄГі.' and 3 or style, title, button1, button2, text}
 end
 
-function samp.onShowDialog(id, style, title, button1, button2, text) -- Скрытие кода складских помещений
-    return {id, text == '{ffffff}Чтобы открыть этот склад, введите специальный' and 3 or style, title, button1, button2, text}
+function samp.onShowDialog(id, style, title, button1, button2, text) -- Г‘ГЄГ°Г»ГІГЁГҐ ГЄГ®Г¤Г  Г±ГЄГ«Г Г¤Г±ГЄГЁГµ ГЇГ®Г¬ГҐГ№ГҐГ­ГЁГ©
+    return {id, text == '{ffffff}Г—ГІГ®ГЎГ» Г®ГІГЄГ°Г»ГІГј ГЅГІГ®ГІ Г±ГЄГ«Г Г¤, ГўГўГҐГ¤ГЁГІГҐ Г±ГЇГҐГ¶ГЁГ Г«ГјГ­Г»Г©' and 3 or style, title, button1, button2, text}
 end
 
 function setDialogColor(l_up, r_up, l_low, r_bottom) --by stereoliza (https://www.blast.hk/threads/13380/post-621933)
     local CDialog = mem.getuint32(getModuleHandle("samp.dll") + 0x21A0B8)
     local CDXUTDialog = mem.getuint32(CDialog + 0x1C)
-    mem.setuint32(CDXUTDialog + 0x12A, l_up, true) -- Левый угол
-    mem.setuint32(CDXUTDialog + 0x12E, r_up, true) -- Правый верхний угол
-    mem.setuint32(CDXUTDialog + 0x132, l_low, true) -- Нижний левый угол
-    mem.setuint32(CDXUTDialog + 0x136, r_bottom, true) -- Правый нижний угол
+    mem.setuint32(CDXUTDialog + 0x12A, l_up, true) -- Г‹ГҐГўГ»Г© ГіГЈГ®Г«
+    mem.setuint32(CDXUTDialog + 0x12E, r_up, true) -- ГЏГ°Г ГўГ»Г© ГўГҐГ°ГµГ­ГЁГ© ГіГЈГ®Г«
+    mem.setuint32(CDXUTDialog + 0x132, l_low, true) -- ГЌГЁГ¦Г­ГЁГ© Г«ГҐГўГ»Г© ГіГЈГ®Г«
+    mem.setuint32(CDXUTDialog + 0x136, r_bottom, true) -- ГЏГ°Г ГўГ»Г© Г­ГЁГ¦Г­ГЁГ© ГіГЈГ®Г«
 end
 
 function ClearChat()
