@@ -90,16 +90,6 @@ function update()
     return f
 end
 
-function riveryaupdate()
-	local lastver = update():getLastVersion()
-    if thisScript().version ~= lastver then
-        sampRegisterChatCommand('riveryaupd', function()
-            update():download()
-        end)
-		sampAddChatMessage('{42B166}[!.by riverya]{ffffff} Вышло обновление скрипта ({dc4747}'..thisScript().version..'{ffffff} -> {42B166}'..lastver..'{ffffff}), введите {dc4747}/riveryaupd{ffffff} для обновления!', -1)
-	end
-end
-
 function ev.onCreate3DText(id, col, pos, dist, wall, PID, VID, text)
 	if PID ~= 65535 and col == -858993409 and pos.z == -1 then
 		pool[PID] = {id = id, col = col, pos = pos, dist = dist, wall = wall, PID = PID, VID = VID, text = text }
@@ -115,15 +105,23 @@ function ev.onRemove3DTextLabel(id)
 	end
 end
 
-function sayhello()
+function riveryahello()
 	sampAddChatMessage('{FFFFFF}Сборку сделал {42B166}'..author..' {FFFFFF}| {74adfc}'..vk..' {FFFFFF}I{74adfc} '..tiktok..'', -1)
 	sampAddChatMessage('{42B166}[Уютненько :)]{ffffff} Меню скрипта: {dc4747}/riverya{FFFFFF}. Версия скрипта {42B166}' ..thisScript().version, -1)
+	
+	local lastver = update():getLastVersion()
+    if thisScript().version ~= lastver then
+        sampRegisterChatCommand('riveryaupd', function()
+            update():download()
+        end)
+		sampAddChatMessage('{42B166}[!.byriverya]{ffffff} Вышло обновление скрипта ({dc4747}'..thisScript().version..'{ffffff} -> {42B166}'..lastver..'{ffffff}), введите {dc4747}/riveryaupd{ffffff} для обновления!', -1)
+		addOneOffSound(0, 0, 0, 1058)
+	end
 end
 
 function main()
-	while not isSampAvailable() do wait(100) end
-	repeat wait(100) until isSampAvailable()
-	
+	while not isSampAvailable() do wait(0) end
+	repeat wait(0) until isSampAvailable()
 	--sampAddChatMessage('{FFFFFF}Сборку сделал {42B166}'..author..' {FFFFFF}| {74adfc}'..vk..' {FFFFFF}I{74adfc} '..tiktok..'', -1)
 	--sampAddChatMessage('{42B166}[Уютненько :)]{ffffff} Меню скрипта: {dc4747}/riverya{FFFFFF}. Версия скрипта {42B166}' ..thisScript().version, -1)
 	
@@ -136,6 +134,7 @@ function main()
             update():download()
         end)
 		sampAddChatMessage('{42B166}[!.by riverya]{ffffff} Вышло обновление скрипта ({dc4747}'..thisScript().version..'{ffffff} -> {42B166}'..lastver..'{ffffff}), введите {dc4747}/riveryaupd{ffffff} для обновления!', -1)
+		addOneOffSound(0, 0, 0, 1058)
 	end]]--
 
 	--setDialogColor(0xCC38303c, 0xCC363050, 0xCC75373d, 0xCC583d46) -- dialog color by riverya4life
@@ -151,7 +150,6 @@ function main()
     local finish = nil
 
   	-- Блок памяти
-	
 	mem.setint8(0xB7CEE4, 1) -- бесконечный бег
 	mem.fill(0x58DD1B, 0x90, 2, true) -- звёзды на экране
 	mem.setuint8(0x588550, 0xEB, true) -- disable arrow
@@ -190,10 +188,8 @@ function main()
 	mem.write(0x5231A6, 235, 1, true)
 	mem.write(0x52322D, 235, 1, true)
 	mem.write(0x5233BA, 235, 1, true)
-	
 	writeMemory(0x571784, 4, 0x57C7FFF, false) -- nolimitedmoneyhud
 	writeMemory(0x57179C, 4, 0x57C7FFF, false)
-	
     writeMemory(0x460500, 1, 0xC3, true) -- no replay
     mem.fill(0x748E6B, 0x90, 5, true) -- CGame::Shutdown
     mem.fill(0x748E82, 0x90, 5, true) -- RsEventHandler rsRWTERMINATE
@@ -202,22 +198,18 @@ function main()
 	writeMemory(0x5EFFE7, 1, 0xEB, true)-- disable talking
 	writeMemory(0x5B8E55, 4, 0x15F90, true)--flickr
     writeMemory(0x5B8EB0, 4, 0x15F90, true)--flickr
-
-	
-	--mem.write(sampGetBase() + 643864, 37008, 2, true) -- Патч радара при слежке
-	--mem.fill(0x74542B, 0x90, 6, true) -- nop SetCursorPos
 	
 	--[[mem.fill(0x57E3AE, 0x90, 5, true)-- подсказки
-	mem.fill(0x579698, 0x90, 5, true) -- отключает надпись на меню сверху]]--
+	mem.fill(0x579698, 0x90, 5, true) -- отключает надпись на меню сверху
 
-	--memory.setint32(0x866C94, 0x6438302524, true) -- Позитивные деньги стандартное значение
-	--mem.setint32(0x866C94, 0x6430302524, true) -- Позитивные деньги с удалением нулей
+	memory.setint32(0x866C94, 0x6438302524, true) -- Позитивные деньги стандартное значение
+	mem.setint32(0x866C94, 0x6430302524, true) -- Позитивные деньги с удалением нулей
 
-	--memory.setint64(0x866C8C, 0x64373025242D, true) -- Негативные деньги стандартное значение
-	--mem.setint64(0x866C8C, 0x64303025242D, true) -- Негативные деньги с удалением нулей
+	memory.setint64(0x866C8C, 0x64373025242D, true) -- Негативные деньги стандартное значение
+	mem.setint64(0x866C8C, 0x64303025242D, true) -- Негативные деньги с удалением нулей
 
 	sampHandle = sampGetBase()
-	writeMemory(sampHandle + 0x2D3C45, 4, 0, 1) -- фикс задержки в 3 сек при подключении
+	writeMemory(sampHandle + 0x2D3C45, 4, 0, 1) -- фикс задержки в 3 сек при подключении]]--
 
 
 	for i = 1, #commands do
@@ -282,8 +274,7 @@ function main()
 		onspawned = sampGetGamestate() == 3
 		if onspawned then
 			if offspawnchecker == true then			
-				sayhello()
-				riveryaupdate()
+				riveryahello()
 			offspawnchecker = false
 			end
 		end
